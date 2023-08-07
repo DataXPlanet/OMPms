@@ -469,10 +469,14 @@ elif selected_mileage:
 
             #  creatin a DataFrame with the fetched rows and column names
             df = pd.DataFrame(columns=column_names[:num_columns])
-            for row in rows:
-                df = df.append(dict(zip(column_names[:num_columns], row)), ignore_index=True)
-            print("dfvalue",df.columns)
-            print("col name",column_names)
+            data_to_append = [dict(zip(column_names[:num_columns], row)) for row in rows]
+            df = pd.concat([df, pd.DataFrame(data_to_append)], ignore_index=True)
+        
+            # df = pd.DataFrame(columns=column_names[:num_columns])
+            # for row in rows:
+            #     df = df.append(dict(zip(column_names[:num_columns], row)), ignore_index=True)
+            # print("dfvalue",df.columns)
+            # print("col name",column_names)
             if column_name in df.columns:
                 column_index = df.columns.get_loc(column_name)  # Get the index of the column_name
                 print("rows value",column_index)
