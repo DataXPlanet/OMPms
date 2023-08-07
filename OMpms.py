@@ -178,8 +178,8 @@ if others:
 
         # Create a DataFrame with the fetched rows and column names
         df = pd.DataFrame(columns=column_names[:num_columns])
-        for row in rows:
-            df = df.append(dict(zip(column_names[:num_columns], row)), ignore_index=True)
+        # for row in rows:
+        #     df = df.append(dict(zip(column_names[:num_columns], row)), ignore_index=True)
 
         if column_name in df.columns:
             column_index = df.columns.get_loc(column_name)  # Get the index of the column_name
@@ -260,9 +260,14 @@ elif inspect:
         column_names = [column[0] for column in cursor.description]
 
         # Create a DataFrame with the fetched rows and column names
+       
         df = pd.DataFrame(columns=column_names[:num_columns])
-        for row in rows:
-            df = df.append(dict(zip(column_names[:num_columns], row)), ignore_index=True)
+        data_to_append = [dict(zip(column_names[:num_columns], row)) for row in rows]
+        df_to_append = pd.DataFrame(data_to_append)
+        df = pd.concat([df, df_to_append], ignore_index=True)
+        
+        # for row in rows:
+        #     df = df.append(dict(zip(column_names[:num_columns], row)), ignore_index=True)
 
         if column_name in df.columns:
             column_index = df.columns.get_loc(column_name)  # Get the index of the column_name
@@ -406,9 +411,11 @@ elif Clean:
         column_names = [column[0] for column in cursor.description]
 
         # Create a DataFrame with the fetched rows and column names
+        # df = pd.DataFrame(columns=column_names[:num_columns])
         df = pd.DataFrame(columns=column_names[:num_columns])
-        for row in rows:
-            df = df.append(dict(zip(column_names[:num_columns], row)), ignore_index=True)
+        data_to_append = [dict(zip(column_names[:num_columns], row)) for row in rows]
+        df_to_append = pd.DataFrame(data_to_append)
+        df = pd.concat([df, df_to_append], ignore_index=True)
 
         if column_name in df.columns:
             column_index = df.columns.get_loc(column_name)  # Get the index of the column_name
