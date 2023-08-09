@@ -539,6 +539,6 @@ elif selected_mileage:
         st.table(styled_df)
    
 else:
-    st.warning("Please select the fields from the dropdown.")
+    st.warning(" * Please select the fields from the dropdown.")
 
 
